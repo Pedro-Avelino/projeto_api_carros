@@ -41,6 +41,13 @@ public class CarroService {
 			return db;
 	} else {
 		throw new RuntimeException("Não foi possivel atualizar o registro");
+		}
 	}
+	
+	public void delete(Long id) {
+		Optional<Carro> carro = getCarroById(id);
+		if(carro.isPresent()) {
+			rep.deleteById(id);
+		}
 	}
 }
