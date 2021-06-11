@@ -27,10 +27,10 @@ public class CarroService {
 	public List<CarroDTO> getCarrosByTipo(String tipo) {
 		return rep.findByTipo(tipo).stream().map(CarroDTO::create).collect(Collectors.toList()); }
 	
-	public Carro insert(Carro carro) {
+	public CarroDTO insert(Carro carro) {
 		Assert.isNull(carro.getId(), "Não foi possivel inserir o registro");
 		
-		return rep.save(carro);
+		return CarroDTO.create(rep.save(carro));
 	}
 	
 	public CarroDTO update(Carro carro, Long id) {
@@ -54,10 +54,12 @@ public class CarroService {
 		}
 	}
 	
-	public void delete(Long id) {
+	public boolean delete(Long id) {
 
 		if(getCarroById(id).isPresent()) {
 			rep.deleteById(id);
+			return true;
 		}
+		return false;
 	}
 }
